@@ -16,8 +16,6 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-
-
         <Border Grid.Column="0" BorderBrush="#D6D6D6" CornerRadius="10" BorderThickness="0" Background="#D6D6D6" Margin="20 20 2 20">
             <ListView x:Name="lvContacts" Grid.Row="0" Margin="15" BorderThickness="0" Background="#F5F5F5" HorizontalContentAlignment="Stretch">
         <ListView.ItemTemplate>
