@@ -3,17 +3,21 @@
     <Style x:Key="defultListView" TargetType="ListView">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="CornerRadius" Value="2"/>
             </Style>
         </Style.Resources>
-        <Setter Property="Background" Value="#f5f5f5"/>
-        <Setter Property="BorderBrush" Value="#f5f5f5"/>
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#ffffff"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
     </Style>
     <Style x:Key="defultBox" TargetType="TextBox">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="CornerRadius" Value="2"/>
             </Style>
         </Style.Resources>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
     </Style>
 </ResourceDictionary>

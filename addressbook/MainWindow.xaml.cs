@@ -31,7 +31,7 @@ namespace addressbook
 
         }
 
-        private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var contact = contacts.FirstOrDefault(x => x.Email == tbEmail.Text);
             if (contact == null)
@@ -48,6 +48,7 @@ namespace addressbook
                 });
             }
             else { MessageBox.Show("Det finns redan en person med denna emailadress!"); }
+            btnSave.Content = "SAVE CONTACT";
             ClearContactInfoField();
         }
 
@@ -64,7 +65,6 @@ namespace addressbook
             tbStreetAddress.Text = "";
             tbPostalCode.Text = "";
             tbCity.Text = "";
-            
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -86,6 +86,7 @@ namespace addressbook
             tbStreetAddress.Text = contact.StreetAddress;
             tbPostalCode.Text = contact.PostalCode;
             tbCity.Text = contact.City;
+            btnSave.Content = "SAVE UPDATE";
         }
     }
 }

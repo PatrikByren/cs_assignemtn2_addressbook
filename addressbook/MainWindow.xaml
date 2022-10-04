@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:addressbook"
         mc:Ignorable="d"
-        Title="AddressBook" Height="400" Width="500">
+        Title="AddressBook" Height="500" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -17,29 +17,33 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderBrush="#F5F5F5" CornerRadius="5" Background="#F5F5F5" Margin="20 20 5 20">
             <StackPanel Grid.Column="0" Background="#F5F5F5" Margin="5 5 5 20">
-                <TextBlock Text="First Name:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbFirstName" Margin="5 0 5 5"/>
-                <TextBlock Text="Last Name:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbLastName"  Margin="5 0 5 5"/>
-                <TextBlock Text="Phone number:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbPhoneNumber"  Margin="5 0 5 5"/>
-                <TextBlock Text="Email:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbEmail"  Margin="5 0 5 5"/>
-                <TextBlock Text="Street Address:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbStreetAddress"  Margin="5 0 5 5"/>
-                <TextBlock Text="Postal Code:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbPostalCode"  Margin="5 0 5 5"/>
-                <TextBlock Text="City:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbCity"  Margin="5 0 5 5"/>
-                <Button x:Name="btnSaveChanges" Click="btnSaveChanges_Click" Content="SAVE CHANGES" Style="{StaticResource defultButton}" Margin="5 20 5 0"/>
+                <TextBlock Text="First Name:" Style="{StaticResource headLineText}" Margin="5 0 5 0"/>
+                <TextBox x:Name="tbFirstName" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="Last Name:" Style="{StaticResource headLineText}"  Margin="5 0 5 0"/>
+                <TextBox x:Name="tbLastName" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="Phone number:" Style="{StaticResource headLineText}" Margin="5 0 5 0"/>
+                <TextBox x:Name="tbPhoneNumber" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="Email:" Style="{StaticResource headLineText}"  Margin="5 0 5 0"/>
+                <TextBox x:Name="tbEmail" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="Street Address:" Style="{StaticResource headLineText}" Margin="5 0 5 0"/>
+                <TextBox x:Name="tbStreetAddress" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="Postal Code:" Style="{StaticResource headLineText}" Margin="5 0 5 0"/>
+                <TextBox x:Name="tbPostalCode" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <TextBlock Text="City:" Style="{StaticResource headLineText}" Margin="5 0 5 0"/>
+                <TextBox x:Name="tbCity" Style="{StaticResource defultBox}" Margin="5 0 5 5"/>
+                <Button x:Name="btnSave" Click="btnSave_Click" Content="SAVE CONTACT" Style="{StaticResource defultButton}" Margin="5 20 5 0"/>
                 <Button x:Name="btnClearInfo" Click="btnClearInfo_Click" Content="CLEAR ADDRESS FIELDS" Style="{StaticResource defultButton}" Margin="5"/>
             </StackPanel>
             
         </Border>
-        <ListView Grid.Column="1" x:Name="lvContacts" Style="{StaticResource defultListView}"  SelectionChanged="lvContacts_SelectionChanged" HorizontalContentAlignment="Stretch" Margin="5 20 20 20" >
+        <Border Grid.Column="1" Margin="5 20 20 20" CornerRadius="5" BorderBrush="#f5f5f5" Background="#f5f5f5">
+            <TextBlock Style="{StaticResource headLineText}" Text="Contact list: " Margin="10 0 30 0"/>
+        </Border>
+        <ListView Grid.Column="1" x:Name="lvContacts" Style="{StaticResource defultListView}"  SelectionChanged="lvContacts_SelectionChanged" HorizontalContentAlignment="Stretch" Margin="15 40 30 30" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+
                         <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
@@ -54,6 +58,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
         <!--<ListView x:Name="lvContacts" SelectionChanged="lvContacts_SelectionChanged" Grid.Column="1" MinWidth="200" Margin="10 40 10 20" Background="#F5F5F5" HorizontalContentAlignment="Stretch">
         <ListView.ItemTemplate>
                 <DataTemplate>
