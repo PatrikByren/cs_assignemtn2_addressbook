@@ -29,6 +29,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="background" Property="Opacity" Value="0.8"/>
                             <Setter Property="BorderBrush" Value="#19442E" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="background" Property="Opacity" Value="1"/>
@@ -43,6 +44,7 @@
     <Style x:Key="symbolButton" TargetType="Button">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand" />
 
     </Style>
 

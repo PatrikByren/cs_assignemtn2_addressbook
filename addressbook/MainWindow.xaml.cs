@@ -1,7 +1,10 @@
 ﻿using addressbook.Models;
+using addressbook.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,34 +25,33 @@ namespace addressbook
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<ContactPerson> contacts;
+        private ObservableCollection<ContactPerson> _contacts;
+        private FileService _fileService = new FileService();
+        private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\wpf.Json";
+        private bool saveUpdate;
+
+
         public MainWindow()
         {
             InitializeComponent();
-            contacts = new ObservableCollection<ContactPerson>();
-            lvContacts.ItemsSource = contacts;
-
-        }
-
-        //private void btnSave_Click(ContactPerson contact, RoutedEventArgs e)
-        //{
-        //    {
-        //        contact.FirstName = tbFirstName.Text;
-        //        contact.LastName = tbLastName.Text;
-        //        contact.PhoneNumber = tbPhoneNumber.Text;
-        //        contact.Email = tbEmail.Text;
-        //        contact.StreetAddress = tbStreetAddress.Text;
-        //        contact.PostalCode = tbPostalCode.Text;
-        //        contact.City = tbCity.Text;
-        //    }
-        //    ClearContactInfoField();
-        //}
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            var contact = contacts.FirstOrDefault(x => x.Email == tbEmail.Text);
-            if (contact == null)
+            try
             {
-                contacts.Add(new ContactPerson
+                _contacts = JsonConvert.DeserializeObject<ObservableCollection<ContactPerson>>(_fileService.Read(_filePath));
+                lvContacts.ItemsSource = _contacts;
+            }
+            catch
+            {            
+                _contacts = new ObservableCollection<ContactPerson>();
+                lvContacts.ItemsSource = _contacts;
+
+            }
+        }
+        public void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+   
+            if (saveUpdate == false)
+            {
+                _contacts.Add(new ContactPerson
                 {
                     FirstName = tbFirstName.Text,
                     LastName = tbLastName.Text,
@@ -59,21 +61,35 @@ namespace addressbook
                     PostalCode = tbPostalCode.Text,
                     City = tbCity.Text
                 });
+                _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
             }
             else
             {
-                MessageBox.Show("Det finns redan en person med denna emailadress!");
-
+                var contact = (ContactPerson)lvContacts.SelectedItem;
+                contact.FirstName = tbFirstName.Text;
+                contact.LastName = tbLastName.Text;
+                contact.PhoneNumber = tbPhoneNumber.Text;
+                contact.Email = tbEmail.Text;
+                contact.StreetAddress = tbStreetAddress.Text;
+                contact.PostalCode = tbPostalCode.Text;
+                contact.City = tbCity.Text;
+                _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
             }
-
-            ClearContactInfoField();
-
+            try
+            {
+                _contacts = JsonConvert.DeserializeObject<ObservableCollection<ContactPerson>>(_fileService.Read(_filePath));
+                lvContacts.ItemsSource = _contacts;
+            }
+            catch
+            { }
+            ClearContactInfoField();  
         }
-        private void btnClearInfo_Click(object sender, RoutedEventArgs e)
+        public void btnClearInfo_Click(object sender, RoutedEventArgs e)
         {
+            saveUpdate = false;
             ClearContactInfoField();
         }
-        private void ClearContactInfoField()
+        public void ClearContactInfoField()
         {
             tbFirstName.Text = "";
             tbLastName.Text = "";
@@ -83,18 +99,21 @@ namespace addressbook
             tbPostalCode.Text = "";
             tbCity.Text = "";
             btnSave.Content = "SAVE CONTACT";
+            var contact =(ContactPerson)lvContacts.SelectedItem;
+            contact = null!;
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        public void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
             var contact = (ContactPerson)button!.DataContext;
-            contacts.Remove(contact);
+            _contacts.Remove(contact);
+            _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
         }
 
-        private void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var contact = (ContactPerson)lvContacts.SelectedItem; //[0]!;
+            var contact = (ContactPerson)lvContacts.SelectedItem;
             tbFirstName.Text = contact.FirstName;
             tbLastName.Text = contact.LastName;
             tbPhoneNumber.Text = contact.PhoneNumber;
@@ -103,7 +122,9 @@ namespace addressbook
             tbPostalCode.Text = contact.PostalCode;
             tbCity.Text = contact.City;
             btnSave.Content = "SAVE UPDATE";
-
+            saveUpdate=true;
         }
+
+
     }
 }
