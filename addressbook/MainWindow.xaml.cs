@@ -31,6 +31,19 @@ namespace addressbook
 
         }
 
+        //private void btnSave_Click(ContactPerson contact, RoutedEventArgs e)
+        //{
+        //    {
+        //        contact.FirstName = tbFirstName.Text;
+        //        contact.LastName = tbLastName.Text;
+        //        contact.PhoneNumber = tbPhoneNumber.Text;
+        //        contact.Email = tbEmail.Text;
+        //        contact.StreetAddress = tbStreetAddress.Text;
+        //        contact.PostalCode = tbPostalCode.Text;
+        //        contact.City = tbCity.Text;
+        //    }
+        //    ClearContactInfoField();
+        //}
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var contact = contacts.FirstOrDefault(x => x.Email == tbEmail.Text);
@@ -47,11 +60,15 @@ namespace addressbook
                     City = tbCity.Text
                 });
             }
-            else { MessageBox.Show("Det finns redan en person med denna emailadress!"); }
-            btnSave.Content = "SAVE CONTACT";
-            ClearContactInfoField();
-        }
+            else
+            {
+                MessageBox.Show("Det finns redan en person med denna emailadress!");
 
+            }
+
+            ClearContactInfoField();
+
+        }
         private void btnClearInfo_Click(object sender, RoutedEventArgs e)
         {
             ClearContactInfoField();
@@ -65,6 +82,7 @@ namespace addressbook
             tbStreetAddress.Text = "";
             tbPostalCode.Text = "";
             tbCity.Text = "";
+            btnSave.Content = "SAVE CONTACT";
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -72,8 +90,6 @@ namespace addressbook
             var button = sender as Button;
             var contact = (ContactPerson)button!.DataContext;
             contacts.Remove(contact);
-
-
         }
 
         private void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -87,6 +103,7 @@ namespace addressbook
             tbPostalCode.Text = contact.PostalCode;
             tbCity.Text = contact.City;
             btnSave.Content = "SAVE UPDATE";
+
         }
     }
 }
