@@ -5,42 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:addressbook"
         mc:Ignorable="d"
-        Title="AddressBook" Height="350" Width="500">
+        Title="AddressBook" Height="400" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*" MinWidth="80"/>
+            <ColumnDefinition Width="auto" MinWidth="200"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="#D6D6D6" CornerRadius="10" BorderThickness="0" Background="#D6D6D6" Margin="20 20 2 20">
-            <ListView x:Name="lvContacts" Grid.Row="0" Margin="15" BorderThickness="0" Background="#F5F5F5" HorizontalContentAlignment="Stretch">
-        <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Margin="1" Text="Texten kommer här: "/>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button x:Name="btnDelete" Style="{StaticResource symbolButton}" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Margin="0 0 10 0" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            </ListView>
-            
-        </Border>
-        <TextBlock Text="Contacts:" Margin="40 20 20 5" />
-        <TextBlock Text="Delete:" Margin="100 20 22 5"  HorizontalAlignment="Right"/>
-        <Border Grid.Column="1" BorderBrush="#D6D6D6" CornerRadius="10" BorderThickness="0" Background="#D6D6D6" Margin="2 20 2 20">
-          <StackPanel Grid.Column="1" Background="#D6D6D6" Margin="5 5 5 20">
+        <Border Grid.Column="0" BorderBrush="#F5F5F5" CornerRadius="5" Background="#F5F5F5" Margin="20 20 5 20">
+            <StackPanel Grid.Column="0" Background="#F5F5F5" Margin="5 5 5 20">
                 <TextBlock Text="First Name:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
-                <TextBox x:Name="tbFirstName" BorderThickness="0" Margin="5 0 5 5"/>
+                <TextBox x:Name="tbFirstName" Margin="5 0 5 5"/>
                 <TextBlock Text="Last Name:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
                 <TextBox x:Name="tbLastName"  Margin="5 0 5 5"/>
                 <TextBlock Text="Phone number:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
@@ -53,19 +31,49 @@
                 <TextBox x:Name="tbPostalCode"  Margin="5 0 5 5"/>
                 <TextBlock Text="City:" FontSize="10" FontWeight="Bold" Margin="5 0 5 0"/>
                 <TextBox x:Name="tbCity"  Margin="5 0 5 5"/>
+                <Button x:Name="btnSaveChanges" Click="btnSaveChanges_Click" Content="SAVE CHANGES" Style="{StaticResource defultButton}" Margin="5 20 5 0"/>
+                <Button x:Name="btnClearInfo" Click="btnClearInfo_Click" Content="CLEAR ADDRESS FIELDS" Style="{StaticResource defultButton}" Margin="5"/>
             </StackPanel>
+            
         </Border>
-        <Border Grid.Column="2"  BorderBrush="#D6D6D6" CornerRadius="10" BorderThickness="0" Background="#D6D6D6" Margin="2 20 20 20">
-            <StackPanel Margin="0" Background="Transparent">
-                <Button x:Name="btnClearInfo" Content="CLEAR ADDRESS FIELDS" Style="{StaticResource defultButton}" Margin="5 30"/>
-            </StackPanel>
-        </Border>
-        <StackPanel Grid.Column="2" Margin="2 20 20 20">
-            <Button x:Name="btnSaveChanges" Content="SAVE CHANGES" Style="{StaticResource defultButton}" Margin="5 100 5 5"/>
-        </StackPanel>
-        <StackPanel Grid.Column="2" Margin="2 20 20 20">
-            <Button x:Name="btnSaveNewContact" Content="ADD CONTACT" Style="{StaticResource defultButton}" Margin="5 130"/>
-        </StackPanel>
-
+        <ListView Grid.Column="1" x:Name="lvContacts" Style="{StaticResource defultListView}"  SelectionChanged="lvContacts_SelectionChanged" HorizontalContentAlignment="Stretch" Margin="5 20 20 20" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="{Binding FullName}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button x:Name="btnDelete" Click="btnDelete_Click" Style="{StaticResource symbolButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Content="&#xE74D;" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<ListView x:Name="lvContacts" SelectionChanged="lvContacts_SelectionChanged" Grid.Column="1" MinWidth="200" Margin="10 40 10 20" Background="#F5F5F5" HorizontalContentAlignment="Stretch">
+        <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Margin="1" Text="{Binding FullName}"/>
+                                <TextBlock Margin="1" FontSize="8" Text="{Binding PhoneNumber}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <Button x:Name="btnDelete" Click="btnDelete_Click" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Content="&#xE74D;" Margin="0 0 10 0" />
+                            </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+        --><!--</Border>--><!--
+        <TextBlock Grid.Column="1" Text="Contacts" Margin="20"/>-->
     </Grid>
 </Window>

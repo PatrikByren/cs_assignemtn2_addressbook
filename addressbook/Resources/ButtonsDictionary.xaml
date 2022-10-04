@@ -8,13 +8,14 @@
             </Style>
         </Style.Resources>
 
-        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#ffffff"/>
-        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#f5f5f5"/>
+        <Setter Property="Background" Value="#19442E"/>
         <Setter Property="FontSize" Value="7"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Width" Value="80"/>
+        <Setter Property="Foreground" Value="#E9FFF4"/>
+        <Setter Property="MaxWidth" Value="300" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -27,13 +28,11 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="background" Property="Opacity" Value="0.8"/>
-                            <Setter Property="BorderBrush" Value="#8A8A8A" />
-                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="BorderBrush" Value="#19442E" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="background" Property="Opacity" Value="1"/>
-                            <Setter Property="BorderBrush" Value="#ffffff" />
-                            <Setter Property="Padding" Value="3"/>
+                            <Setter Property="BorderBrush" Value="#f5f5f5" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -42,9 +41,9 @@
 
     </Style>
     <Style x:Key="symbolButton" TargetType="Button">
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="FontSize" Value="14" />
+
     </Style>
 
 </ResourceDictionary>
