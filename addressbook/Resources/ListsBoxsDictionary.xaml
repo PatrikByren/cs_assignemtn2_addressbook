@@ -9,4 +9,11 @@
         <Setter Property="Background" Value="#f5f5f5"/>
         <Setter Property="BorderBrush" Value="#f5f5f5"/>
     </Style>
+    <Style x:Key="defultBox" TargetType="TextBox">
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+    </Style>
 </ResourceDictionary>
