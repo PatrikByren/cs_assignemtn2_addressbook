@@ -29,8 +29,6 @@ namespace addressbook
         private FileService _fileService = new FileService();
         private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\wpf.Json";
         private bool saveUpdate;
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,7 +46,6 @@ namespace addressbook
         }
         public void btnSave_Click(object sender, RoutedEventArgs e)
         {
-   
             if (saveUpdate == false)
             {
                 _contacts.Add(new ContactPerson
@@ -75,22 +72,24 @@ namespace addressbook
                 contact.City = tbCity.Text;
                 _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
             }
+
             try
             {
                 _contacts = JsonConvert.DeserializeObject<ObservableCollection<ContactPerson>>(_fileService.Read(_filePath));
                 lvContacts.ItemsSource = _contacts;
             }
-            catch
-            { }
-            ClearContactInfoField();  
+            catch { }
+            ClearContactInfoField();
         }
         public void btnClearInfo_Click(object sender, RoutedEventArgs e)
         {
             saveUpdate = false;
+            //BindingOperations.ClearAllBindings(lvContacts);
             ClearContactInfoField();
         }
         public void ClearContactInfoField()
         {
+            BindingOperations.ClearAllBindings(lvContacts);
             tbFirstName.Text = "";
             tbLastName.Text = "";
             tbPhoneNumber.Text = "";
@@ -99,21 +98,26 @@ namespace addressbook
             tbPostalCode.Text = "";
             tbCity.Text = "";
             btnSave.Content = "SAVE CONTACT";
-            var contact =(ContactPerson)lvContacts.SelectedItem;
-            contact = null!;
         }
 
         public void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var contact = (ContactPerson)button!.DataContext;
-            _contacts.Remove(contact);
-            _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+            try
+            {
+                var button = sender as Button;
+                var contact = (ContactPerson)button!.DataContext;
+                _contacts.Remove(contact);
+                _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+            }
+            catch 
+            {
+
+            }
         }
 
         public void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var contact = (ContactPerson)lvContacts.SelectedItem;
+            var contact = (ContactPerson)lvContacts.SelectedItem; 
             tbFirstName.Text = contact.FirstName;
             tbLastName.Text = contact.LastName;
             tbPhoneNumber.Text = contact.PhoneNumber;
@@ -125,6 +129,19 @@ namespace addressbook
             saveUpdate=true;
         }
 
+        //private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
 
+        //    if (IsMouseCaptureWithin!)
+        //    {
+        //        Mouse.Capture(lvContacts);
+        //        MessageBox.Show("Hej");
+        //    }
+        //    else
+        //    {
+        //        ClearContactInfoField();
+        //        MessageBox.Show("Hej då");
+        //    }
+        //}
     }
 }
