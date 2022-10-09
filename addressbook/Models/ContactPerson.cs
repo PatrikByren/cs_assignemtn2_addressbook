@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace addressbook.Models
 {
     internal class ContactPerson
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        [Key]public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

@@ -89,7 +89,9 @@ namespace addressbook
         }
         public void ClearContactInfoField()
         {
-            BindingOperations.ClearAllBindings(lvContacts);
+            //var contact = (ContactPerson)lvContacts.SelectedItem;
+            //contact = null;
+            //BindingOperations.ClearAllBindings(lvContacts);
             tbFirstName.Text = "";
             tbLastName.Text = "";
             tbPhoneNumber.Text = "";
@@ -118,30 +120,18 @@ namespace addressbook
         public void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var contact = (ContactPerson)lvContacts.SelectedItem; 
-            tbFirstName.Text = contact.FirstName;
-            tbLastName.Text = contact.LastName;
-            tbPhoneNumber.Text = contact.PhoneNumber;
-            tbEmail.Text = contact.Email;
-            tbStreetAddress.Text = contact.StreetAddress;
-            tbPostalCode.Text = contact.PostalCode;
-            tbCity.Text = contact.City;
-            btnSave.Content = "SAVE UPDATE";
-            saveUpdate=true;
+            if (contact != null)
+            {
+                tbFirstName.Text = contact.FirstName;
+                tbLastName.Text = contact.LastName;
+                tbPhoneNumber.Text = contact.PhoneNumber;
+                tbEmail.Text = contact.Email;
+                tbStreetAddress.Text = contact.StreetAddress;
+                tbPostalCode.Text = contact.PostalCode;
+                tbCity.Text = contact.City;
+                btnSave.Content = "SAVE UPDATE";
+                saveUpdate = true;
+            }
         }
-
-        //private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-
-        //    if (IsMouseCaptureWithin!)
-        //    {
-        //        Mouse.Capture(lvContacts);
-        //        MessageBox.Show("Hej");
-        //    }
-        //    else
-        //    {
-        //        ClearContactInfoField();
-        //        MessageBox.Show("Hej då");
-        //    }
-        //}
     }
 }
