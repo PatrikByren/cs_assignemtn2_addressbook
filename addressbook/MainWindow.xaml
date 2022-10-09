@@ -49,6 +49,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <TextBlock Text="{Binding FullName}"/>
+                            <TextBlock Text="{Binding PhoneNumber}" FontSize="8"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button x:Name="btnDelete" Click="btnDelete_Click" Style="{StaticResource symbolButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Content="&#xE74D;" />
