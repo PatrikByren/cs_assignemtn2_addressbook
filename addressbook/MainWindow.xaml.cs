@@ -25,7 +25,7 @@ namespace addressbook
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<ContactPerson> _contacts;
+        private ObservableCollection<ContactPerson>? _contacts;
         private FileService _fileService = new FileService();
         private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\wpf.Json";
         private bool saveUpdate;
@@ -48,29 +48,40 @@ namespace addressbook
         {
             if (saveUpdate == false)
             {
-                _contacts.Add(new ContactPerson
+                try
                 {
-                    FirstName = tbFirstName.Text,
-                    LastName = tbLastName.Text,
-                    PhoneNumber = tbPhoneNumber.Text,
-                    Email = tbEmail.Text,
-                    StreetAddress = tbStreetAddress.Text,
-                    PostalCode = tbPostalCode.Text,
-                    City = tbCity.Text
-                });
-                _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+                    _contacts.Add(new ContactPerson
+                    {
+                        FirstName = tbFirstName.Text,
+                        LastName = tbLastName.Text,
+                        PhoneNumber = tbPhoneNumber.Text,
+                        Email = tbEmail.Text,
+                        StreetAddress = tbStreetAddress.Text,
+                        PostalCode = tbPostalCode.Text,
+                        City = tbCity.Text
+                    });
+                    _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+                }
+                catch
+                {
+                    ErrorText();
+                }
             }
             else
             {
-                var contact = (ContactPerson)lvContacts.SelectedItem;
-                contact.FirstName = tbFirstName.Text;
-                contact.LastName = tbLastName.Text;
-                contact.PhoneNumber = tbPhoneNumber.Text;
-                contact.Email = tbEmail.Text;
-                contact.StreetAddress = tbStreetAddress.Text;
-                contact.PostalCode = tbPostalCode.Text;
-                contact.City = tbCity.Text;
-                _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+                try
+                {
+                    var contact = (ContactPerson)lvContacts.SelectedItem;
+                    contact.FirstName = tbFirstName.Text;
+                    contact.LastName = tbLastName.Text;
+                    contact.PhoneNumber = tbPhoneNumber.Text;
+                    contact.Email = tbEmail.Text;
+                    contact.StreetAddress = tbStreetAddress.Text;
+                    contact.PostalCode = tbPostalCode.Text;
+                    contact.City = tbCity.Text;
+                    _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+                }
+                catch { ErrorText(); }
             }
 
             try
@@ -83,15 +94,12 @@ namespace addressbook
         }
         public void btnClearInfo_Click(object sender, RoutedEventArgs e)
         {
-            saveUpdate = false;
-            //BindingOperations.ClearAllBindings(lvContacts);
+            ErrorText();
             ClearContactInfoField();
+
         }
         public void ClearContactInfoField()
         {
-            //var contact = (ContactPerson)lvContacts.SelectedItem;
-            //contact = null;
-            //BindingOperations.ClearAllBindings(lvContacts);
             tbFirstName.Text = "";
             tbLastName.Text = "";
             tbPhoneNumber.Text = "";
@@ -100,6 +108,7 @@ namespace addressbook
             tbPostalCode.Text = "";
             tbCity.Text = "";
             btnSave.Content = "SAVE CONTACT";
+            saveUpdate = false;
         }
 
         public void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -133,5 +142,11 @@ namespace addressbook
                 saveUpdate = true;
             }
         }
+        public void ErrorText()
+        {
+            MessageBox.Show("Gratz, you found an Error! Try something else!");
+            ClearContactInfoField();
+        }
+
     }
 }
