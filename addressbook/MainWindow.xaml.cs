@@ -94,7 +94,7 @@ namespace addressbook
         }
         public void btnClearInfo_Click(object sender, RoutedEventArgs e)
         {
-            ErrorText();
+            
             ClearContactInfoField();
 
         }

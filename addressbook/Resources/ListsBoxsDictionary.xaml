@@ -19,5 +19,6 @@
         </Style.Resources>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
 </ResourceDictionary>
