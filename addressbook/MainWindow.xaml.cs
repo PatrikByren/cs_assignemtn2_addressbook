@@ -26,8 +26,8 @@ namespace addressbook
     public partial class MainWindow : Window
     {
         private ObservableCollection<ContactPerson>? _contacts;
-        private FileService _fileService = new FileService();
-        private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\wpf.Json";
+        private readonly FileService _fileService = new();
+        private readonly string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\wpf.Json";
         private bool saveUpdate;
         public MainWindow()
         {
@@ -50,7 +50,7 @@ namespace addressbook
             {
                 try
                 {
-                    _contacts.Add(new ContactPerson
+                    _contacts!.Add(new ContactPerson
                     {
                         FirstName = tbFirstName.Text,
                         LastName = tbLastName.Text,
@@ -117,8 +117,9 @@ namespace addressbook
             {
                 var button = sender as Button;
                 var contact = (ContactPerson)button!.DataContext;
-                _contacts.Remove(contact);
+                _contacts!.Remove(contact);
                 _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+                ClearContactInfoField();
             }
             catch 
             {
