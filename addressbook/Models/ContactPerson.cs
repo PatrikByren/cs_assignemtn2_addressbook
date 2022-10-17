@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace addressbook.Models
 {
-    internal class ContactPerson
+    internal class ContactPerson //Min defination av en contact
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; } = null!;
@@ -18,6 +18,6 @@ namespace addressbook.Models
         public string StreetAddress { get; set; } = null!;  
         public string PostalCode { get; set; } = null!; 
         public string City { get; set; } = null!;   
-        public string FullName => $"{FirstName} {LastName}";
+        public string FullName => $"{FirstName} {LastName}"; //Slår ihop 2 properties för att underlätta hämtningen
     }
 }

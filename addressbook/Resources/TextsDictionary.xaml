@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="headLineText" TargetType="TextBlock">
+    <Style x:Key="headLineText" TargetType="TextBlock"> <!--Style i min headline text-->
         <Setter Property="Foreground" Value="#22563C"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="14"/>

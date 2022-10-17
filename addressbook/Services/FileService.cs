@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace addressbook.Services
 {
-    internal class FileService
+    internal interface IFileService
+    {
+        public void Save(string filePath, string content);
+        public string Read(string filePath);
+    }
+    internal class FileService : IFileService
     {
         public void Save(string filePath, string content)
         {
