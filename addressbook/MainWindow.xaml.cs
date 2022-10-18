@@ -46,7 +46,7 @@ namespace addressbook
         }
         public void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (saveUpdate == false) //Om false ny kontakt
+            if (saveUpdate == false) //Om false skapa ny kontakt
             {
                 try
                 {
@@ -109,14 +109,16 @@ namespace addressbook
             tbCity.Text = "";
             btnSave.Content = "SAVE CONTACT"; //Ändrar content på texten
             saveUpdate = false; //Uppdatera boolen
+            lvContacts.SelectedItems.Clear();
+            
         }
 
         public void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var button = sender as Button; //Om jag trycker på Delete knappen
-                var contact = (ContactPerson)button!.DataContext; //Ta fram den markerade kontakten
+                var button = sender as Button; //Om jag trycker på Delete knappen, tar jag fram objektet
+                var contact = (ContactPerson)button!.DataContext; //Ta fram datan från objektet
                 _contacts!.Remove(contact); //Rensa från listan
                 _fileService.Save(_filePath, JsonConvert.SerializeObject(_contacts));//Spara listan
                 ClearContactInfoField();//Rensa fälten
@@ -129,10 +131,12 @@ namespace addressbook
 
         public void lvContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var contact = (ContactPerson)lvContacts.SelectedItem; //Tar fram kontakter i den grafiska listan
+
+            var obj = sender as ListView; //Hämtar objektet från listan
+            var contact = (ContactPerson)obj!.SelectedItem; 
             if (contact != null) //Så länge den inte är null, den kan bli det om man trycker på samma kontakt igen efter rensat fälten, eller vill radera kontakt efter rensat fält
             {
-                tbFirstName.Text = contact.FirstName; 
+                tbFirstName.Text = contact.FirstName;
                 tbLastName.Text = contact.LastName;
                 tbPhoneNumber.Text = contact.PhoneNumber;
                 tbEmail.Text = contact.Email;
@@ -142,7 +146,7 @@ namespace addressbook
                 btnSave.Content = "SAVE UPDATE"; //Ändra texten på knappen
                 saveUpdate = true; //Uppdatera boolen
             }
-        }
+    }
         public void ErrorText()
         {
             MessageBox.Show("Gratz, you found an Error! Try something else!"); //Om man lyckas hitta en bug meddelas det och metoden nedan körs igen
