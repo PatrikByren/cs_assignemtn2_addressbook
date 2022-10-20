@@ -109,7 +109,7 @@ namespace addressbook
             tbCity.Text = "";
             btnSave.Content = "SAVE CONTACT"; //Ändrar content på texten
             saveUpdate = false; //Uppdatera boolen
-            lvContacts.SelectedItems.Clear();
+            lvContacts.SelectedItems.Clear(); //Rensar den valda kontakten så jag kan trycka på samma kontakt 2 gånger. 
             
         }
 
@@ -133,7 +133,7 @@ namespace addressbook
         {
 
             var obj = sender as ListView; //Hämtar objektet från listan
-            var contact = (ContactPerson)obj!.SelectedItem; 
+            var contact = (ContactPerson)obj!.SelectedItem; //Gör om objekten till en contact
             if (contact != null) //Så länge den inte är null, den kan bli det om man trycker på samma kontakt igen efter rensat fälten, eller vill radera kontakt efter rensat fält
             {
                 tbFirstName.Text = contact.FirstName;
